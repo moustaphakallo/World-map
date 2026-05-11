@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte Monde - Afrique de l'Ouest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2a3f5f;
+            --secondary: #d4a574;
+            --accent: #e8d5c4;
+            --dark-bg: #1a1f2e;
+            --light-text: #f5f5f5;
+            --success: #6b9b7f;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary) 100%);
+            color: var(--light-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(26, 31, 46, 0.9);
+            border-bottom: 3px solid var(--secondary);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: var(--accent);
+            font-weight: 300;
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+               
+        }
+         .container img{
+            width: 100%;
+             height: auto;
+             border-radius: 10px;
+             transition: var(--transition);
+         }
+        /* WORLD MAP SECTION */
+        .map-section {
+            margin: 3rem 0;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .map-container {
+            background: rgba(42, 63, 95, 0.6);
+            border-radius: 20px;
+            padding: 2rem 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(212, 165, 116, 0.3);
+            transition: var(--transition);
+            overflow: hidden;
+            
+        }
+
+        .map-container:hover {
+            border-color: var(--secondary);
+            background: rgba(42, 63, 95, 0.8);
+            transform: translateY(-5px);
+        }
+
+        .map-container img {
+            max-width: 100%;
+            height: 100%;
+            max-height: 400px;
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+            transition: var(--transition);
+           animation: moveBg 6s infinite alternate;
+        }
+
+        .map-container:hover img {
+            filter: drop-shadow(0 30px 60px rgba(212, 165, 116, 0.3));
+            transform: scale(1.05);
+        }
+
+        /* ABOUT SECTION */
+        .about-section {
+            background: linear-gradient(135deg, rgba(42, 63, 95, 0.8) 0%, rgba(107, 155, 127, 0.6) 100%);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            margin: 3rem 0;
+            border-left: 5px solid var(--secondary);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .about-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), transparent);
+        }
+
+        .about-section p {
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            line-height: 1.8;
+            color: rgba(245, 245, 245, 0.95);
+        }
+
+        /* COUNTRIES SECTION */
+        .countries-section {
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        .countries-header {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 2rem 1.5rem;
+            text-align: left;
+        }
+
+        .countries-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .countries-header p {
+            color: var(--primary);
+            font-size: clamp(0.95rem, 2vw, 1.1rem);
+            opacity: 0.8;
+        }
+
+        /* COUNTRIES GRID */
+   .countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+
+    padding: 2rem 1.5rem;
+
+    border-radius: 20px;
+
+    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/053/542/974/small/world-map-features-white-outlines-of-continents-and-oceans-on-a-blue-background-for-geographic-study-photo.jpg");
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    animation: moveBg 6s infinite alternate;
+}
+@keyframes moveBg {
+
+    from {
+        background-position: left;
+    }
+
+    to {
+        background-position: right;
+    }
+
+}
+
+        .country-card {
+            background: linear-gradient(135deg, #f8f8f8 0%, #efefef 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .country-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--secondary);
+            box-shadow: 0 20px 50px rgba(212, 165, 116, 0.25);
+        }
+
+        .country-flag {
+            font-size: 2.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--success) 100%);
+            font-weight: 700;
+        }
+
+        .country-name {
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--secondary);
+            font-size: clamp(1rem, 2vw, 1.2rem);
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .country-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .country-card:hover .country-image {
+            transform: scale(1.1);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .countries-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                padding: 1.5rem 1rem;
+            }
+
+            .map-section {
+                margin: 2rem 0;
+            }
+
+            .about-section {
+                padding: 1.5rem 1rem;
+                margin: 2rem 0;
+            }
+
+            .countries-header {
+                padding: 1.5rem 1rem;
+            }
+
+            header {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                margin-bottom: 0.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .countries-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .container {
+                padding: 0.5rem;
+            }
+
+            .country-flag {
+                font-size: 2rem;
+                padding: 1rem;
+            }
+
+            .country-name {
+                padding: 1rem;
+            }
+
+            .about-section {
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+        }
+
+        /* ANIMATIONS */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: rgba(26, 31, 46, 0.9);
+            border-top: 2px solid var(--secondary);
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌍 Carte Mondiale</h1>
+        <p class="subtitle">Exploration de l'Afrique de l'Ouest</p>
+    </header>
+
+    <div class="container">
+        <!-- WORLD MAP -->
+        <section class="map-section">
+            <div class="map-container">
+                <img 
+                    src="https://upload.wikimedia.org/wikipedia/commons/8/80/World_map_-_low_resolution.svg"
+                    alt="Carte du monde"
+                >
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="about-section">
+            <h2>À propos de la carte mondiale</h2>
+            <p>
+                Une carte du monde est une représentation visuelle de la surface terrestre, montrant les continents, océans et caractéristiques géographiques. Elle aide les gens à apprendre la géographie, à voyager et à comprendre les différentes régions du monde.
+            </p>
+        </section>
+
+        <!-- COUNTRIES -->
+        <section class="countries-section">
+            <div class="countries-header">
+                <h2>Pays affichés</h2>
+                <p>Découvrez les magnifiques nations de l'Afrique de l'Ouest</p>
+            </div>
+
+            <div class="countries-grid">
+                <!-- GUINEA -->
+                <div class="country-card">
+                    <div class="country-flag">🇬🇳</div>
+                    <div class="country-name">Guinée Conakry</div>
+                    <img src="https://img.freepik.com/vecteurs-premium/carte-isometrique-3d-guinee-drapeau-national_97886-6847.jpg?semt=ais_hybrid&w=740&q=80" alt="Guinée">
+                </div>
+
+                <!-- GUINEA-BISSAU -->
+                <div class="country-card">
+                    <div class="country-flag">🇬🇼</div>
+                    <div class="country-name" >Guinée-Bissau</div>
+                    <img src="https://s3.pixers.pics/pixers/700/FO/59/69/87/00/700_FO59698700_9c1787a81998a852724487177ef516fb.jpg" alt="Guinée-Bissau">
+                </div>
+
+                <!-- MALI -->
+                <div class="country-card">
+                    <div class="country-flag">🇲🇱</div>
+                    <div class="country-name">Mali</div>
+                    <img src="https://bamada.net/wp-content/uploads/2023/04/carte-mali-decoupage.jpg" alt="Mali">
+                </div>
+
+                <!-- SIERRA LEONE -->
+                <div class="country-card">
+                    <div class="country-flag">🇸🇱</div>
+                    <div class="country-name">Sierra Leone</div>
+                    <img src="https://img.freepik.com/vecteurs-premium/carte-drapeau-sierra-leone_445068-2444.jpg" alt="Sierra Leone">
+                </div>
+
+                <!-- CÔTE D'IVOIRE -->
+                <div class="country-card">
+                    <div class="country-flag">🇨🇮</div>
+                    <div class="country-name">Côte d'Ivoire</div>
+                    <img src="https://img.freepik.com/vecteurs-premium/carte-3d-cote-ivoire-drapeau-national_97886-6567.jpg" alt="Côte d'Ivoire">
+                </div>
+
+                <!-- LIBERIA -->
+                <div class="country-card">
+                    <div class="country-flag">🇱🇷</div>
+                    <div class="country-name">Liberia</div>
+                    <img src="https://static.vecteezy.com/ti/vecteur-libre/p1/26422703-liberia-carte-drapeau-carte-de-le-republique-de-liberia-avec-le-liberien-pays-banniere-vecteur-illustration-vectoriel.jpg" alt="Liberia">
+                </div>
+
+                <!-- SENEGAL -->
+                <div class="country-card">
+                    <div class="country-flag">🇸🇳</div>
+                    <div class="country-name">Sénégal</div>
+                    <img src="https://img.freepik.com/vecteurs-premium/carte-du-senegal-fond-blanc-dessin-du-jour-du-senegal-dessin-fete-nationale_645607-3251.jpg?semt=ais_hybrid&w=740&q=80" alt="Sénégal">
+                </div>
+
+                <!-- ATLANTIC OCEAN -->
+                <div class="country-card">
+                    <div class="country-flag">🌊</div>
+                    <div class="country-name">Océan Atlantique</div>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOKD3M8xqJaiLnJQZV6yx08vSds_I2dJ3spw&s" alt="Océan Atlantique">
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>© 2026 Carte Mondiale | Afrique de l'Ouest</p>
+    </footer>
+</body>
+</html>
