@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sponsored Products</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+  body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #fff;
+  color: #222;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+    .products-section {
+      width: 100%;
+      padding: 8px 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ---------------- HEADER ---------------- */
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .dots {
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ---------------- PRODUCTS ---------------- */
+
+    .products-container {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding-bottom: 5px;
+    }
+
+    .products-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .product-card {
+      flex: 0 0 155px;
+      min-width: 155px;
+      height: 333px;
+      background: #f8f8f8;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      transition: 0.3s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.12);
+    }
+
+    /* ---------------- IMAGE ---------------- */
+
+    .product-image {
+      width: 100%;
+      height: 210px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ---------------- CONTENT ---------------- */
+
+    .product-content {
+      padding: 10px 10px 8px;
+    }
+
+    .product-name {
+      color: #0808c9;
+      font-size: 14px;
+      line-height: 1.4;
+      height: 42px;
+      overflow: hidden;
+      margin-bottom: 7px;
+    }
+
+    .product-price {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 7px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .product-seller {
+      font-size: 12px;
+      color: #555;
+    }
+
+    /* ---------------- ARROW ---------------- */
+
+    .next-button {
+      position: absolute;
+      right: 14px;
+      top: 150px;
+
+      width: 48px;
+      height: 48px;
+
+      border: none;
+      border-radius: 50%;
+      background: white;
+
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+
+      font-size: 30px;
+      color: #0879ff;
+
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      z-index: 10;
+    }
+
+    .next-button:hover {
+      background: #f2f2f2;
+    }
+
+    /* ---------------- TABLET ---------------- */
+
+    @media (max-width: 900px) {
+
+      .product-card {
+        flex-basis: 160px;
+        min-width: 160px;
+      }
+
+      .product-image {
+        height: 205px;
+      }
+    }
+
+    /* ---------------- MOBILE ---------------- */
+
+    @media (max-width: 600px) {
+
+      .products-section {
+        padding: 8px 5px;
+      }
+
+      .section-title {
+        font-size: 17px;
+      }
+
+      .product-card {
+        flex: 0 0 145px;
+        min-width: 145px;
+        height: 310px;
+        border-radius: 14px;
+      }
+
+      .product-image {
+        height: 190px;
+      }
+
+      .product-content {
+        padding: 8px;
+      }
+
+      .product-name {
+        font-size: 13px;
+      }
+
+      .product-price {
+        font-size: 13px;
+      }
+
+      .next-button {
+        width: 42px;
+        height: 42px;
+        right: 8px;
+        top: 145px;
+        font-size: 25px;
+      }
+    }
+
+    /* ---------------- VERY SMALL PHONE ---------------- */
+
+    @media (max-width: 400px) {
+
+      .product-card {
+        flex: 0 0 140px;
+        min-width: 140px;
+      }
+
+      .product-image {
+        height: 180px;
+      }
+    }
+    
+  footer{
+    background:black;
+    color: white;
+    padding:32px 16px 16px;
+  }
+ 
+  .footer-inner{
+    max-width:1100px;
+    margin:0 auto;
+  }
+ 
+  .footer-columns{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    margin-bottom:24px;
+  }
+ 
+  .footer-col{
+    flex:1 1 160px;
+    min-width:150px;
+  }
+ 
+  .footer-col h3{
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:12px;
+    
+  }
+ 
+  .footer-col ul{
+    list-style:none;
+  }
+ 
+  .footer-col li{
+    margin-bottom:9px;
+  }
+ 
+  .footer-col a{
+    font-size:13px;
+    color:#555;
+    text-decoration:none;
+  }
+ 
+  .footer-col a:hover,
+  .footer-col a:focus-visible{
+    color:#0879ff;
+  }
+ 
+  .footer-col a:focus-visible{
+    outline:2px solid #0879ff;
+    outline-offset:3px;
+    border-radius:2px;
+  }
+ 
+  .footer-brand{
+    flex:1 1 200px;
+    min-width:180px;
+  }
+ 
+  .footer-brand .logo{
+    font-size:18px;
+    font-weight:bold;
+    color:#0808c9;
+    margin-bottom:8px;
+  }
+ 
+  .footer-brand p{
+    font-size:12.5px;
+    color:#666;
+    line-height:1.5;
+  }
+ 
+  .footer-bottom{
+    border-top:1px solid #e2e2e2;
+    padding-top:14px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+  }
+ 
+  .footer-bottom .copyright{
+    font-size:12px;
+    color:#777;
+  }
+ 
+  .footer-bottom .legal-links{
+    display:flex;
+    gap:16px;
+  }
+ 
+  .footer-bottom .legal-links a{
+    font-size:12px;
+    color:#777;
+    text-decoration:none;
+  }
+ 
+  .footer-bottom .legal-links a:hover{
+    color:#0879ff;
+  }
+ 
+  @media (max-width:600px){
+    .footer-columns{flex-direction:column;gap:20px;}
+    .footer-bottom{flex-direction:column;align-items:flex-start;}
+  }
+    /* ---------------- NAVBAR ---------------- */
+ 
+  header.navbar{
+    width:100%;
+    background:#fff;
+    border-bottom:1px solid #e2e2e2;
+    position:sticky;
+    top:0;
+    z-index:100;
+  }
+ 
+  .navbar-inner{
+    max-width:1200px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    text-align: center;
+    justify-content:space-between;
+    gap:16px;
+    padding:12px 16px;
+    
+  }
+ 
+  .navbar-logo{
+    font-size:20px;
+    font-weight:bold;
+    color:#0808c9;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+ 
+  /* Search bar */
+ 
+  .navbar-search{
+    flex:1 1 400px;
+    display:flex;
+    max-width:600px;
+  }
+ 
+  .navbar-search input{
+    flex:1;
+    border:1px solid #ddd;
+    border-right:none;
+    border-radius:8px 0 0 8px;
+    padding:9px 12px;
+    font-size:14px;
+    outline:none;
+  }
+ 
+  .navbar-search input:focus{
+    border-color:#0879ff;
+  }
+ 
+  .navbar-search button{
+    background:#0879ff;
+    border:none;
+    border-radius:0 8px 8px 0;
+    padding:0 16px;
+    color:#fff;
+    font-size:16px;
+    cursor:pointer;
+  }
+ 
+  .navbar-search button:hover{
+    background:#066adf;
+  }
+ 
+  /* Right icons */
+ 
+  .navbar-actions{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    text-align: center;
+  }
+ 
+  .navbar-actions a{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-decoration:none;
+    color:#333;
+    font-size:11px;
+    gap:2px;
+  }
+ 
+  .navbar-actions a:hover,
+  .navbar-actions a:focus-visible{
+    color:#0879ff;
+  }
+ 
+  .navbar-actions a:focus-visible{
+    outline:2px solid #0879ff;
+    outline-offset:3px;
+    border-radius:4px;
+  }
+ 
+  .icon{
+    width:22px;
+    height:22px;
+    fill:none;
+    stroke:currentColor;
+    stroke-width:1.8;
+  }
+ 
+  .cart-wrap{
+    position:relative;
+  }
+ 
+  .cart-badge{
+    position:absolute;
+    top:-4px;
+    right:-8px;
+    background:#0879ff;
+    color:#fff;
+    font-size:10px;
+    font-weight:bold;
+    min-width:16px;
+    height:16px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0 3px;
+  }
+ 
+  /* Category links row */
+ 
+  .navbar-categories{
+    border-top:1px solid #f0f0f0;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+ 
+  .navbar-categories::-webkit-scrollbar{ display:none; }
+ 
+  .navbar-categories ul{
+    list-style:none;
+    display:flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: white;
+    gap:24px;
+    max-width:1200px;
+    margin:0 auto;
+    padding: 40px 16px;
+    white-space:nowrap;
+   
+
+  }
+ 
+  .navbar-categories a{
+    font-size:13px;
+    color:#444;
+    text-decoration:none;
+  }
+ 
+  .navbar-categories a:hover{
+    color:#0879ff;
+  }
+ 
+  /* Mobile menu button */
+ 
+  .menu-toggle{
+    display:none;
+    background:none;
+    border:none;
+    font-size:24px;
+    cursor:pointer;
+    color:#222;
+  }
+ 
+  @media (max-width:800px){
+    .navbar-search{ order:3; flex:1 1 100%; max-width:none; }
+    .navbar-inner{ flex-wrap:wrap; }
+  }
+ 
+  @media (max-width:480px){
+    .navbar-actions a span.label{ display:none; }
+    .navbar-logo{ font-size:17px; }
+  }
+ 
+  .Montre1{
+    display:flex;
+    
+    text-align:center;
+    align-items:center;
+    justify-content:center;
+    margin:20px;
+    padding:27px;
+    background:#f8f8f8;
+    border-radius:16px;
+    max-width:220px;
+    transition:0.3s ease;
+  }
+ 
+  .Montre1:hover{
+    transform:translateY(-3px);
+    box-shadow:0 4px 15px rgba(0,0,0,0.12);
+  }
+ 
+  .Montre img{
+    width:100px;
+    height:100%;
+    object-fit:cover;
+    margin-bottom:14px;
+  }
+ 
+  .Montre-nom{
+    color:#0808c9;
+    font-size:14px;
+    line-height:1.4;
+    margin-bottom:7px;
+  }
+ 
+.Montre1 {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: rgb(13, 7, 88);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.Montre img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.commentaire {
+  flex: 1;
+}
+
+.commentaire h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.commentaire p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.etoiles {
+  margin-top: 10px;
+  font-size: 22px;
+}
+  </style>
+</head>
+
+<body>
+  <nav style="display: flex; justify-content: center; gap: 20px;text-decoration: none;">
+    <a href="index.html">Index</a>
+    <a href="montre.html">Montre</a>
+</nav>
+<div class="navbar-inner">
+ 
+    <a href="#" class="navbar-logo">Kallo & Frères</a>
+ 
+    <form class="navbar-search" role="search">
+      <input type="text" placeholder="Rechercher un produit, une marque...">
+      <button type="submit" aria-label="Rechercher">🔍</button>
+    </form>
+ 
+    <nav class="navbar-actions" aria-label="Compte et panier">
+      <a href="#">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span class="label">Compte</span>
+      </a>
+ 
+      <a href="#">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 8h-3l-3-5H10L7 8H4l1 12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2l1-12Z"/></svg>
+        <span class="label">Favoris</span>
+      </a>
+ 
+      <a href="#" class="cart-wrap">
+        <svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6"/></svg>
+        <span class="label">Panier</span>
+        <span class="cart-badge">3</span>
+      </a>
+    </nav>
+ 
+    <button class="menu-toggle" aria-label="Menu">☰</button>
+ 
+  </div>
+ 
+  <div class="navbar-categories">
+    <ul>
+      <li><a href="#">Montres</a></li>
+      <li><a href="#">Chemises & Polos</a></li>
+      <li><a href="#">Nouveautés</a></li>
+      <li><a href="#">Promotions</a></li>
+      <li><a href="#">Accessoires</a></li>
+      <li><a href="#">Marques</a></li>
+    </ul>
+  </div>
+  <section class="Montre1">
+  <div class="Montre">
+    <img src="Kallo22.png" alt="Montre">
+  </div>
+
+  <div class="commentaire">
+    <h2>Montre</h2>
+    <p>
+      Très belle montre, élégante et de bonne qualité.
+      Elle donne vraiment un joli style au poignet.
+      Je recommande !
+    </p>
+    <div class="etoiles">★★★★★</div>
+  </div>
+</section>
+ 
+  <section class="products-section">
+
+    <!-- HEADER -->
+    <div class="section-header">
+      <h2 class="section-title">Sponsored Products</h2>
+      <span class="dots">⋮</span>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="products-container" id="productsContainer">
+
+      <!-- PRODUCT 1 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="Kallo10.jpg"
+            alt="Automatic Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            D-Ziner
+          </div>
+
+          <div class="product-price">
+            300,000NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+           <div class="stars">★★★★★</div>
+        </div>
+      </div>
+
+
+      <!-- PRODUCT 2 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="Kallo20.jpg"
+            alt="Dextera Lux Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+             D-Ziner
+          </div>
+
+          <div class="product-price">
+            300,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 3 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=500&q=80"
+            alt="Chronopass Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+               D-Ziner
+          </div>
+
+          <div class="product-price">
+            300,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 4 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="Kallo13.jpg"
+            alt="   D-Ziner Blue Chrono Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            D-Ziner
+          </div>
+
+          <div class="product-price">
+            300,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 5 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="Kallo14.jpg"
+            alt="Shinola Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            D-Ziner watch
+          </div>
+
+          <div class="product-price">
+            300,000NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 6 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="Kallo18.jpg"
+            alt="D-ziner">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            D-ziner
+          </div>
+
+          <div class="product-price">
+            300,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 7 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="Kallo16.jpg"
+            alt="D-ziner Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            D-Ziner Watches For Men Leather
+          </div>
+
+          <div class="product-price">
+            300,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 8 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="Kallo17.jpg"
+            alt="D-Ziner Moon Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            D-Zine rmoon watch Swiss Made, Metal
+          </div>
+
+          <div class="product-price">
+            300,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="Kallo19.jpg"
+            alt="D-Ziner Moon Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            D-Zine rmoon watch Swiss Made, Metal
+          </div>
+
+          <div class="product-price">
+            300,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+    </div>
+
+
+    <!-- NEXT BUTTON -->
+    <button class="next-button" onclick="scrollProducts()">
+      ›
+    </button>
+
+  </section>
+  <section class="products-section">
+
+    <!-- HEADER -->
+    <div class="section-header">
+      <h2 class="section-title">Sponsored Products</h2>
+      <span class="dots">⋮</span>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="products-container" id="productsContainer">
+
+      <!-- PRODUCT 1 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://ng.jumia.is/unsafe/fit-in/680x680/filters:fill(white)/product/35/8660192/1.jpg?9413"
+            alt=" Mens Long Sleeve Casual Pattern ">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            Mens Long Sleeve Casual Pattern Floral Business Official Shirts
+          </div>
+
+          <div class="product-price">
+            150,000NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 2 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/47/1166914/1.jpg?0912"
+            alt=" Men's Striped Collar Polo Shirt">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            Men's Striped Collar Polo Shirt, Casual Short Sleeve Business Top - Navy Blue
+          </div>
+
+          <div class="product-price">
+            150,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 3 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/02/9379501/1.jpg?0291"
+            alt="Chronopass Watch">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+               Berrykey Men's Long Sleeve Striped Polo Shirt Plaid Collar Casual Top
+          </div>
+
+          <div class="product-price">
+            150,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 4 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/30/8999804/1.jpg?1154"
+            alt=" Men's White Striped Collar Polo Shirt, ">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            Berrykey Mens Business Polos Shirts Casual Joggers Tshirt Top - Grey
+          </div>
+
+          <div class="product-price">
+            150,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 5 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://ng.jumia.is/oWt08JOZHHUxIdrla9XeEyk9ABg=/fit-in/500x500/filters:fill(white)/product/19/8821151/1.jpg?4925"
+            alt="AIDAILU Mens Turtleneck Formal Long ">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            Share this product
+
+
+
+        AIDAILU Mens Turtleneck Formal Long Sleeve Male Henleys Vintage Shirts - Brown
+          </div>
+
+          <div class="product-price">
+            150,000NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 6 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/30/1039914/1.jpg?3438"
+            alt="  Two-tone Knitted">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            Two-tone Knitted Business Men Polo Shirt
+          </div>
+
+          <div class="product-price">
+            150,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 7 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/85/2705914/1.jpg?4456"
+            alt=" Men's Fashion Polo Shirt ">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            Men's Fashion Polo Shirt Business Casual T-shirt - Black
+          </div>
+
+          <div class="product-price">
+            150,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+
+      <!-- PRODUCT 8 -->
+      <div class="product-card">
+        <div class="product-image">
+          <img
+            src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/95/058766/1.jpg?1693"
+            alt=" Berrykey Mens Office Polos Shirts ">
+        </div>
+
+        <div class="product-content">
+          <div class="product-name">
+            Berrykey Mens Office Polos Shirts Casual Joggers Tshirt Top-Navyblue
+          </div>
+
+          <div class="product-price">
+            150,000 NGN
+          </div>
+
+          <div class="product-seller">
+            Kallo & Frères
+          </div>
+        </div>
+         <div class="stars">★★★★★</div>
+      </div>
+
+    </div>
+
+
+    <!-- NEXT BUTTON -->
+    <button class="next-button" onclick="scrollProducts()">
+      ›
+    </button>
+
+  </section>
+<footer>
+  <div class="footer-inner">
+ 
+    <div class="footer-columns">
+ 
+      <div class="footer-brand">
+        <div class="logo">Kallo & Frères</div>
+        <p>Montres et vêtements de qualité, sélectionnés avec soin pour vous.</p>
+      </div>
+ 
+      <div class="footer-col">
+        <h3>Boutique</h3>
+        <ul>
+          <li><a href="#">Montres</a></li>
+          <li><a href="#">Chemises & Polos</a></li>
+          <li><a href="#">Nouveautés</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-col">
+        <h3>Aide</h3>
+        <ul>
+          <li><a href="#">Livraison & retours</a></li>
+          <li><a href="#">Suivi de commande</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+ 
+      <div class="footer-col">
+        <h3>Entreprise</h3>
+        <ul>
+          <li><a href="#">À propos</a></li>
+          <li><a href="#">Vendre sur Kallo & Frères</a></li>
+        </ul>
+      </div>
+ 
+    </div>
+ 
+    <div class="footer-bottom">
+      <div class="copyright">© 2026 Kallo & Frères. Tous droits réservés.</div>
+      <div class="legal-links">
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+        <a href="#">CGV</a>
+      </div>
+    </div>
+ 
+  </div>
+</footer>
+  <script>
+    function scrollProducts() {
+
+      const container =
+        document.getElementById("productsContainer");
+
+      container.scrollBy({
+        left: 500,
+        behavior: "smooth"
+      });
+    }
+  </script>
+
+</body>
+</html>
